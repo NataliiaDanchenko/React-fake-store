@@ -6,7 +6,7 @@ import  {BrowserRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename="react-store">
+  <BrowserRouter basename="react-fake-store">
     <App />
   </BrowserRouter>
 );
