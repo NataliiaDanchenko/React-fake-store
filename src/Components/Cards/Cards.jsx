@@ -1,11 +1,18 @@
 
-import style from "./Cards.module.css";
+
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import Product from "./Product/Product";
+import style from "./Cards.module.css";
 const Cards = () => {
-    let[products, setProducts] = useState([]);
-    const navigate = useNavigate();
+    let[products, setProducts] = useState([{
+        category: '',
+        description: '',
+        image: '',
+        id: '',
+        price: '',
+        title: ''
+    }]);
 
     useEffect(()=>{
         axios.get('https://fakestoreapi.com/products')
@@ -14,27 +21,13 @@ const Cards = () => {
                 setProducts(response.data);
             })
     })
-
-    const showHandler = (productId) => {
-        navigate(`product/${productId}`)
-    }
-
     return (
         <div className={style.cards}>
             <div className="container">
                 <h2>Cards</h2>
                 <div className={style.products}>
                     {
-                        products.map((pr)=>{
-                            return (
-                                <div className={style.card}>
-                                    <img src={pr.image} alt={`image_product${pr.id}`}/>
-                                    <h2>{pr.title}</h2>
-                                    <h3>{pr.price}$</h3>
-                                    <button onClick={()=>{showHandler(pr.id)}}>Buy</button>
-                                </div>
-                            )
-                        })
+                        products.map((pr, index) => <Product key={index} pr={pr}/>)
                     }
                 </div>
             </div>
