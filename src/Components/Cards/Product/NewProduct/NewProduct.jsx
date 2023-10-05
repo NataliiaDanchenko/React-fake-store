@@ -1,6 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import style from './NewProduct.module.css';
+import Header from '../../../Header/Header';
+import Loader from '../../../Loader/Loader';
 
 
 const NewProduct = () => {
@@ -9,28 +12,47 @@ const NewProduct = () => {
         image: '',
         title: '',
         description: ''
-    }])
+    }]);
 
-const params = useParams()
-console.log(params)
+    const [loading, setLoading] = useState(false);
+
+    const params = useParams();
 
     useEffect(() => {
-        axios.get(`https://fakestoreapi.com/products/${params.id}`)
-            .then(response => {
-                console.log(response.data)
-                setFetch(response.data);
-            })
-    }, [])
+        setLoading(true);
+        setTimeout(() => {  // setTimeout для того, чтобы увидеть компонент Loader при медленной загрузке данных
+            axios.get(`https://fakestoreapi.com/products/${params.id}`)
+                .then(response => {
+                    console.log(response.data);
+                    setFetch(response.data);
+                    setLoading(false);
+                }, 2000);
+        });
+
+    }, []);
 
     return (
-        <div>
-            <h1>Вы открыли страницу товара ID = {params.id}</h1>
-            <div>{fetch.id}</div>
-            <div><img src={fetch.image}/></div>
-            <div><h3>{fetch.title}</h3></div>
-            <div>{fetch.description}</div>
+        <div className={style.each_product}>
+            <Header />
+            <div>
+                {
+                    loading ? <Loader />
+                        : <div className={style.new_product}>
+                            <div><img src={fetch.image} /></div>
+                            <div>
+                                <div><h3>{fetch.title}</h3></div>
+                                <div className={style.description}>{fetch.description}</div>
+                                <p className={style.price}>{`${fetch.price} $`}</p>
+                                <button>Add to basket</button>
+                            </div>
+                        </div>
+                }
+            </div>
         </div>
+
     );
 };
+
+
 
 export default NewProduct;

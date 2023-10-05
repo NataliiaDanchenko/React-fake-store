@@ -1,9 +1,10 @@
-.cards {
-
+.cards select {
+    margin-top: 50px;
 }
+
 .products {
+    margin: 50px 0;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 6%;
 }

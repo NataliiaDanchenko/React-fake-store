@@ -1,13 +1,12 @@
 .header {
     width: 100%;
-    height: 25vh;
+    height: 10vh;
     background: url("./../../assets/img/background.jpg");
-    padding: 80px 0 0 0;
+    background-size: contain;
+    padding: 25px 0 0 0;
 }
 
 .header img {
     width: 50px;
     height: 50px;
 }
-
-
